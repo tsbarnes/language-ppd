@@ -1,19 +1,19 @@
 {
-  "name": "language-text",
-  "version": "0.7.0",
-  "description": "Plain text support in Atom",
+  "name": "language-ppd",
+  "version": "0.1.0",
+  "description": "PostScript Printer Description support for Atom",
   "engines": {
     "atom": "*",
     "node": "*"
   },
-  "homepage": "http://atom.github.io/language-text",
+  "homepage": "http://github.com/tsbarnes/language-ppd",
   "repository": {
     "type": "git",
-    "url": "https://github.com/atom/language-text.git"
+    "url": "https://github.com/tsbarnes/language-ppd.git"
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/atom/language-text/issues"
+    "url": "https://github.com/tsbarnes/language-ppd/issues"
   },
   "devDependencies": {
     "coffeelint": "^1.10.1"
