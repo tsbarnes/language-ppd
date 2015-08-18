@@ -1,7 +1,7 @@
 'fileTypes': [
-  'txt'
+  'ppd'
 ]
-'name': 'Plain Text'
+'name': 'PostScript Printer Description'
 'patterns': [
   {
     'captures':
@@ -30,4 +30,4 @@
     'end': '^(?!\\1(?=\\S))'
   }
 ]
-'scopeName': 'text.plain'
+'scopeName': 'text.ppd'
