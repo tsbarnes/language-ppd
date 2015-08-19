@@ -136,19 +136,14 @@
   'entities':
     'patterns': [
       {
-        'match': '^(\\*)([a-zA-Z0-9\\-]*)(:) ?(.*)'
+        'match': '^(\\*)([a-zA-Z0-9\\-]*)(:)'
         'captures':
           '1': 'name': 'punctuation.operator.ppd'
           '2': 'name': 'entity.name.tag.ppd'
           '3': 'name': 'punctuation.operator.ppd'
-          '4': 'patterns': [
-            {
-              'include': '$self'
-            }
-          ]
       }
       {
-        'match': '^(\\*)([a-zA-Z0-9\\-]*) ([a-zA-Z0-9\\-\\_]*)(/)?(.*)?(:) ?(.*)'
+        'match': '^(\\*)([a-zA-Z0-9\\-]*) ([a-zA-Z0-9\\-\\_]*)(/)?(.*)?(:)'
         'captures':
           '1': 'name': 'punctuation.operator.ppd'
           '2': 'name': 'entity.name.tag.ppd'
@@ -156,11 +151,6 @@
           '4': 'name': 'punctuation.operator.ppd'
           '5': 'name': 'string.unquoted.description.ppd'
           '6': 'name': 'punctuation.operator.ppd'
-          '7': 'patterns': [
-            {
-              'include': '$self'
-            }
-          ]
       }
     ]
   'constants':
