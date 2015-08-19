@@ -3,21 +3,22 @@
 ]
 'name': 'PostScript Printer Description'
 'scopeName': 'source.ppd'
+'firstLineMatch': '^\\*PPD-Adobe: .*$'
 'patterns': [
   {
     'include': '#comment'
   }
   {
-    'include': '#keywords'
+    'include': '#strings'
+  }
+  {
+    'include': '#control'
   }
   {
     'include': '#entities'
   }
   {
-    'include': '#strings'
-  }
-  {
-    'include': '#others'
+    'include': '#constants'
   }
 ]
 
@@ -25,27 +26,6 @@
   'comment':
     'match': '^\\*%.*$'
     'name': 'comment.block.ppd'
-  'entities':
-    'match':
-      '(\\*)(\\s[a-zA-Z0-9\-\/]*)( \\s[a-zA-Z0-9\-\/]*)?(:)(\\s.*)?'
-    'captures':
-      '1': 'name': 'punctuation.definition.begin.ppd'
-      '2': 'name': 'keyword.tag.ppd'
-      '3': 'name': 'variable.parameter.constant.ppd'
-      '4': 'name': 'punctuation.definition.end.ppd'
-      '5':
-        'patterns': [
-          {
-            'include': '#strings'
-          }
-          {
-            'include': '#others'
-          }
-          {
-            'match': '.*?'
-            'name': 'constant.language.ppd'
-          }
-        ]
   'strings':
     'patterns': [
       {
@@ -59,7 +39,131 @@
         'name': 'string.quoted.ppd'
       }
     ]
-  'others':
+  'control':
+    'patterns': [
+      {
+        'begin': '^(\\*)(OpenUI) (\\*)([a-zA-Z0-9\\-]*)(/)?(.*)?(:)(.*)$'
+        'beginCaptures':
+          '1': 'name': 'punctuation.control.ppd'
+          '2': 'name': 'keyword.control.ppd'
+          '3': 'name': 'punctuation.definition.entry.ppd'
+          '4': 'name': 'entity.name.tag.ppd'
+          '5': 'name': 'punctuation.definition.end.ppd'
+          '6': 'name': 'string.unquoted.optionname.ppd'
+          '7': 'name': 'punctuation.parameters.start.ppd'
+          '8':
+            'patterns': [
+              {
+                'include': '#constants'
+              }
+            ]
+        'end': '^(\\*)(CloseUI)(:) ?(\\*)([a-zA-Z0-9\\-]*)$'
+        'endCaptures':
+          '1': 'name': 'punctuation.control.ppd'
+          '2': 'name': 'keyword.control.ppd'
+          '3': 'name': 'punctuation.parameters.start.ppd'
+          '4': 'name': 'punctuation.definition.entry.ppd'
+          '5': 'name': 'entity.name.tag.ppd'
+        'name': 'meta.scope.ui-block.ppd'
+        'patterns': [
+          {
+            'match': '^(\\*)(OrderDependency)(:) ?([0-9]*) (ExitServer|Prolog|DocumentSetup|PageSetup|JCLSetup|AnySetup) (\\*)([a-zA-Z0-9\\-]*) ?(\\*)?([a-zA-Z0-9\\-]*)?'
+            'captures':
+              '1': 'name': 'punctuation.operator.ppd'
+              '2': 'name': 'keyword.control.ppd'
+              '3': 'name': 'punctuation.operator.ppd'
+              '4': 'name': 'constant.numeric.ppd'
+              '5': 'name': 'constant.language.section.ppd'
+              '6': 'name': 'punctuation.operator.ppd'
+              '7': 'name': 'entity.name.tag.ppd'
+              '8': 'name': 'punctuation.operator.ppd'
+              '9': 'name': 'entity.name.tag.ppd'
+          }
+          {
+            'match': '^(\\*)(Default[a-zA-Z0-9\\-]*)(:) ?(.*)'
+            'captures':
+              '1': 'name': 'punctuation.operator.ppd'
+              '2': 'name': 'keyword.control.ppd'
+              '3': 'name': 'punctuation.operator.ppd'
+              '4': 'name': 'variable.other.normal.ppd'
+          }
+          {
+            'include': '$self'
+          }
+        ]
+      }
+      {
+        'begin': '^(\\*)(OpenGroup)(:)(.*)$'
+        'beginCaptures':
+          '1': 'name': 'punctuation.control.ppd'
+          '2': 'name': 'keyword.control.ppd'
+          '3': 'name': 'punctuation.parameters.start.ppd'
+          '4': 'name': 'string.unquoted.groupname.ppd'
+        'end': '^(\\*)(CloseGroup)(:)(.*)$'
+        'endCaptures':
+          '1': 'name': 'punctuation.control.ppd'
+          '2': 'name': 'keyword.control.ppd'
+          '3': 'name': 'punctuation.parameters.start.ppd'
+          '4': 'name': 'string.unquoted.groupname.ppd'
+        'name': 'meta.scope.ui-group.ppd'
+        'patterns': [
+          {
+            'include': '$self'
+          }
+        ]
+      }
+      {
+        'begin': '^(\\*)(OpenSubGroup)(:)(.*)$'
+        'beginCaptures':
+          '1': 'name': 'punctuation.control.ppd'
+          '2': 'name': 'keyword.control.ppd'
+          '3': 'name': 'punctuation.parameters.start.ppd'
+          '4': 'name': 'string.unquoted.groupname.ppd'
+        'end': '^(\\*)(CloseSubGroup)(:)(.*)$'
+        'endCaptures':
+          '1': 'name': 'punctuation.control.ppd'
+          '2': 'name': 'keyword.control.ppd'
+          '3': 'name': 'punctuation.parameters.start.ppd'
+          '4': 'name': 'string.unquoted.groupname.ppd'
+        'name': 'meta.scope.ui-subgroup.ppd'
+        'patterns': [
+          {
+            'include': '$self'
+          }
+        ]
+      }
+    ]
+  'entities':
+    'patterns': [
+      {
+        'match': '^(\\*)([a-zA-Z0-9\\-]*)(:) ?(.*)'
+        'captures':
+          '1': 'name': 'punctuation.operator.ppd'
+          '2': 'name': 'entity.name.tag.ppd'
+          '3': 'name': 'punctuation.operator.ppd'
+          '4': 'patterns': [
+            {
+              'include': '$self'
+            }
+          ]
+      }
+      {
+        'match': '^(\\*)([a-zA-Z0-9\\-]*) ([a-zA-Z0-9\\-\\_]*)(/)?(.*)?(:) ?(.*)'
+        'captures':
+          '1': 'name': 'punctuation.operator.ppd'
+          '2': 'name': 'entity.name.tag.ppd'
+          '3': 'name': 'variable.other.normal.ppd'
+          '4': 'name': 'punctuation.operator.ppd'
+          '5': 'name': 'string.unquoted.description.ppd'
+          '6': 'name': 'punctuation.operator.ppd'
+          '7': 'patterns': [
+            {
+              'include': '$self'
+            }
+          ]
+      }
+    ]
+  'constants':
     'patterns': [
       {
         'match': '\\b(True|true|False|false)\\b'
@@ -70,34 +174,22 @@
         'name': 'constant.numeric.ppd'
       }
       {
-        'match': '\\s+\\[.+\\]$',
-        'name': 'variable.definition.ppd'
+        'match': '\\b(None)\\b'
+        'name': 'constant.language.none.ppd'
+      }
+      {
+        'match': '\\b(Unknown)\\b'
+        'name': 'constant.language.unknown.ppd'
+      }
+      {
+        'match': '\\b(PickOne|PickMany|Boolean)\\b'
+        'name': 'constant.language.optiontype.ppd'
       }
     ]
-  'keywords':
+  'structure':
     'patterns': [
       {
         'match': '\\b(PPD-Adobe)\\b'
-        'name': 'keyword.definition.ppd'
-      }
-      {
-        'match': '\\b(FormatVersion|FileVersion|PSVersion)\\b'
-        'name': 'keyword.version.ppd'
-      }
-      {
-        'match': '\\b(LanguageVersion|LanguageEncoding|LanguageLevel)\\b'
-        'name': 'keyword.i18n.ppd'
-      }
-      {
-        'match': '\\b(Manufacturer|Product|ModelName|ShortNickName|NickName|1284DeviceID|PCFileName)\\b'
-        'name': 'keyword.identifier.ppd'
-      }
-      {
-        'match': '\\b(Font|DefaultFont)\\b'
-        'name': 'keyword.font.ppd'
-      }
-      {
-        'match': '\\b(OpenGroup|OpenUI|CloseGroup|CloseUI)\\b'
-        'name': 'keyword.control.ppd'
+        'name': 'keyword.declaration.ppd'
       }
     ]
