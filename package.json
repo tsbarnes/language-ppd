@@ -1,6 +1,6 @@
 {
   "name": "language-ppd",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "PostScript Printer Description support for Atom",
   "engines": {
     "atom": "*",
